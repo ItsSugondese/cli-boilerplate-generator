@@ -1,0 +1,204 @@
+package controller
+
+import (
+	response_crud_enum "?pname/enums/interface-enums/response/response-crud-enum"
+	localization_enums "?pname/enums/struct-enums/localization-enums"
+	"?pname/enums/struct-enums/project_module"
+	generic_controller "?pname/generics/generic-controller"
+	globaldto "?pname/global/global_dto"
+	"?pname/internal/?same/dto"
+	"?pname/internal/?same/service"
+	"?pname/pkg/common/localization"
+	"strings"
+
+	"github.com/go-playground/validator/v10"
+	"github.com/google/uuid"
+
+	"github.com/gin-gonic/gin"
+)
+
+type ?uController interface {
+	Save?u(ctx *gin.Context, validate *validator.Validate)
+    GetAll?uDetails(ctx *gin.Context)
+    GetAll?uDetailsPaginated(ctxtx *gin.Context, validate *validator.Validate)
+    Get?uDetailsById(ctx *gin.Context)
+    Delete?uById(ctx *gin.Context)
+}
+
+type ?lController struct {
+	service service.?uService
+}
+
+func New?uController(service service.?uService) ?uController {
+	return &?lController{
+		service: service,
+	}
+}
+
+// @Summary register ?swag using this api
+// @Schemes
+// @Description
+// @Tags ?swag
+// @Accept json
+// @Produce json
+// @Param ?snake body dto.?uRequest true "?swag details"
+// @Success 200 {object} dto.?uResponse
+// @Router /?same [post]
+func (c *?lController) Save?u(ctx *gin.Context, validate *validator.Validate) {
+
+	var ?lDto dto.?uRequest
+
+	if err := generic_controller.ControllerValidationHandler(&?lDto, ctx, validate); err != nil {
+		return
+	}
+
+	savedData := c.service.Save?uService(ctx, ?lDto)
+
+	generic_controller.GenericControllerSuccessResponseHandler(ctx,
+		localization.GetLocalizedMessage(localization_enums.MessageCodeEnums.API_OPERATION, map[string]interface{}{
+			"First":  project_module.ModuleNameEnums.?mne,
+			"Second": strings.ToLower(response_crud_enum.Create().String()),
+		}), savedData)
+}
+
+// @Summary get all ?swag
+// @Schemes
+// @Description
+// @Tags ?swag
+// @Accept json
+// @Produce json
+// @Success 200 {object} model.?u
+// @Router /faq [get]
+func (c *?lController) GetAll?uDetails(ctx *gin.Context) {
+
+	getData := c.service.GetAll?u(ctx)
+
+	generic_controller.GenericControllerSuccessResponseHandler(ctx,
+		localization.GetLocalizedMessage(localization_enums.MessageCodeEnums.API_OPERATION, map[string]interface{}{
+			"First":  project_module.ModuleNameEnums.?mne + " Details",
+			"Second": strings.ToLower(response_crud_enum.Get().String()),
+		}), getData)
+}
+
+// @Summary get all ?swag details paginated
+// @Schemes
+// @Description
+// @Tags ?swag
+// @Accept json
+// @Produce json
+// @Param ?snake body dto.?uPaginationRequest true "?swag details"
+// @Success 200 {object} pagination_utils.PaginationResponse{Data=[]dto.?uResponse}
+// @Router /?same/paginated [post]
+func (c *?lController) GetAll?uDetailsPaginated(ctx *gin.Context, validate *validator.Validate) {
+    var paginatedRequest dto.?uPaginationRequest
+
+	if err := generic_controller.ControllerValidationHandler(&paginatedRequest, ctx, validate); err != nil {
+		return
+	}
+
+	getData := c.service.FindAll?usPaginatedService(ctx, paginatedRequest)
+
+	generic_controller.GenericControllerSuccessResponseHandler(ctx,
+		localization.GetLocalizedMessage(localization_enums.MessageCodeEnums.API_OPERATION, map[string]interface{}{
+			"First":  project_module.ModuleNameEnums.?mne + " Details",
+			"Second": strings.ToLower(response_crud_enum.Get().String()),
+		}), getData)
+
+}
+
+// @Summary get ?swag details by passing id on url
+// @Schemes
+// @Description
+// @Tags ?swag
+// @Accept json
+// @Produce json
+// @Param id path int true "?swag ID"
+// @Success 200 {object} dto.?uResponse
+// @Router /?same/:id [get]
+func (c *?lController) Get?uDetailsById(ctx *gin.Context) {
+	id, parseError := uuid.Parse(ctx.Param("id"))
+
+	if parseError != nil {
+		panic(parseError)
+	}
+
+	getData := c.service.Get?uDetailsByIdService(ctx, id)
+
+	generic_controller.GenericControllerSuccessResponseHandler(ctx,
+		localization.GetLocalizedMessage(localization_enums.MessageCodeEnums.API_OPERATION, map[string]interface{}{
+			"First":  project_module.ModuleNameEnums.?mne + " Details",
+			"Second": strings.ToLower(response_crud_enum.Get().String()),
+		}), getData)
+
+}
+
+// @Summary Delete ?swag
+// @Description This API deletes an existing ?swag details by its ID.
+// @Tags ?swag
+// @Param id path string true "?swag ID"
+// @Success 200 {string} string "?swag deleted successfully"
+// @Failure 404 {object} bool "?swag not found"
+// @Failure 500 {object} bool "Internal server error"
+// @Router /?same/{id} [delete]
+func (c *?lController) Delete?uById(ctx *gin.Context) {
+	// Parse the location ID from the URL
+	?lId, err := uuid.Parse(ctx.Param("id"))
+	if err != nil {
+		panic(&globaldto.PanicObject{
+			Err:        err,
+			StatusCode: 400,
+		})
+	}
+
+	// Call the service to delete the user location
+	c.service.Delete?uByIdService(ctx, ?lId)
+
+	generic_controller.GenericControllerSuccessResponseHandler(ctx,
+		localization.GetLocalizedMessage(localization_enums.MessageCodeEnums.API_OPERATION, map[string]interface{}{
+			"First":  project_module.ModuleNameEnums.?mne,
+			"Second": strings.ToLower(response_crud_enum.Delete().String()),
+		}), nil)
+}
+--noUUID--
+// @Summary get ?swag details by passing id on url
+// @Schemes
+// @Description
+// @Tags ?swag
+// @Accept json
+// @Produce json
+// @Param id path int true "?swag ID"
+// @Success 200 {object} dto.?uResponse
+// @Router /?same/:id [get]
+func (c *?lController) Get?uDetailsById(ctx *gin.Context) {
+	?lId := ctx.Param("id")
+
+	getData := c.service.Get?uDetailsByIdService(ctx, ?lId)
+
+	generic_controller.GenericControllerSuccessResponseHandler(ctx,
+		localization.GetLocalizedMessage(localization_enums.MessageCodeEnums.API_OPERATION, map[string]interface{}{
+			"First":  project_module.ModuleNameEnums.?mne + " Details",
+			"Second": strings.ToLower(response_crud_enum.Get().String()),
+		}), getData)
+
+}
+
+// @Summary Delete ?swag
+// @Description This API deletes an existing ?swag details by its ID.
+// @Tags ?swag
+// @Param id path string true "?swag ID"
+// @Success 200 {string} string "?swag deleted successfully"
+// @Failure 404 {object} bool "?swag not found"
+// @Failure 500 {object} bool "Internal server error"
+// @Router /?same/{id} [delete]
+func (c *?lController) Delete?uById(ctx *gin.Context) {
+	?lId := ctx.Param("id")
+
+	// Call the service to delete the ?swag
+	c.service.Delete?uByIdService(ctx, ?lId)
+
+	generic_controller.GenericControllerSuccessResponseHandler(ctx,
+		localization.GetLocalizedMessage(localization_enums.MessageCodeEnums.API_OPERATION, map[string]interface{}{
+			"First":  project_module.ModuleNameEnums.?mne,
+			"Second": strings.ToLower(response_crud_enum.Delete().String()),
+		}), nil)
+}

@@ -1,0 +1,10 @@
+package dto
+
+import (
+	pagination_utils "?pname/pkg/utils/pagination-utils"
+)
+
+type ?uPaginationRequest struct {
+	pagination_utils.PaginationRequest
+
+}

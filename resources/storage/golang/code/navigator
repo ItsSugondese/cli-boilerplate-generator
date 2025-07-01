@@ -1,0 +1,40 @@
+package ?snake_navigator
+
+import (
+	localization_enums "?pname/enums/struct-enums/localization-enums"
+	"?pname/enums/struct-enums/project_module"
+	"?pname/internal/?same/model"
+	generic_repo "?pname/generics/generic-repo"
+	"?pname/pkg/common/localization"
+	"github.com/google/uuid"
+)
+
+func Find?uByIdService(id uuid.UUID) model.?u {
+	?l, err := generic_repo.FindSingleByField[model.?u]("id", id)
+
+	if err != nil {
+		panic(err)
+	}
+	if ?l == nil {
+		panic(localization.GetLocalizedMessage(localization_enums.MessageCodeEnums.COLUMN_NOT_EXISTS, map[string]interface{}{
+			"First":  project_module.ModuleNameEnums.?mne,
+			"Second": "Id",
+		}))
+	}
+	return *?l
+}
+--noUUID--
+func Find?uByIdService(id string) model.?u {
+	?l, err := generic_repo.FindSingleByField[model.?u]("id", id)
+
+	if err != nil {
+		panic(err)
+	}
+	if ?l == nil {
+		panic(localization.GetLocalizedMessage(localization_enums.MessageCodeEnums.COLUMN_NOT_EXISTS, map[string]interface{}{
+			"First":  project_module.ModuleNameEnums.?mne,
+			"Second": "Id",
+		}))
+	}
+	return *?l
+}
