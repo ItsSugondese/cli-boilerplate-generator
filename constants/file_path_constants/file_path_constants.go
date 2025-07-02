@@ -15,9 +15,10 @@ var (
 	PresentDir    string = filepath.Join(filepath.Dir(ProjectPath), "")
 	UploadDir     string = filepath.Join(PresentDir, "?same-document", "?same", FileSeparator)
 
-	ResourcesFolderAbsolutePath = filepath.Join(ProjectPath, "resources")
-	StorageFolderAbsolutePath   = filepath.Join(ResourcesFolderAbsolutePath, "storage")
-	GolangFolderAbsolutePath    = filepath.Join(StorageFolderAbsolutePath, "golang")
+	ResourcesFolderAbsolutePath        = filepath.Join(ProjectPath, "resources")
+	StorageFolderAbsolutePath          = filepath.Join(ResourcesFolderAbsolutePath, "storage")
+	GolangFolderAbsolutePath           = filepath.Join(StorageFolderAbsolutePath, "golang")
+	ProjectNameStorageFileAbsolutePath = filepath.Join(StorageFolderAbsolutePath, "project_name")
 	//AngularFolderAbsolutePath            = filepath.Join(StorageFolderAbsolutePath, "angular")
 
 )

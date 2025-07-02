@@ -1,3 +1,8 @@
 
 
-go build -o bin/lazy
+go build -o bin/lazy .
+
+
+## Global Initializer
+echo "alias lazy='$HOME/Desktop/cli-boilerplate-generator/bin/lazy'" >> ~/.bashrc
+source ~/.bashrc

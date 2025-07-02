@@ -1,3 +1,6 @@
 package delimiter_constants
 
-const PipeDelimiter string = "|"
+const (
+	PipeDelimiter  string = "|"
+	CommaDelimiter string = ","
+)

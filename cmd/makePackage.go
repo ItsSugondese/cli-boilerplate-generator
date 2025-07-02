@@ -5,6 +5,7 @@ package cmd
 
 import (
 	"cli-boilerplate-generator/internal/domain/makepackages"
+	"cli-boilerplate-generator/pkg/utils/folder_utils"
 	"fmt"
 	"github.com/spf13/cobra"
 	"strconv"
@@ -31,9 +32,16 @@ to quickly create a Cobra application.`,
 			fmt.Println("Error:", err)
 			return
 		}
+		cwd, err := folder_utils.FolderNameInTerminal()
+		if err != nil {
+			fmt.Println("Error getting current directory:", err)
+			return
+		}
+
 		makePackage := makepackages.MakePackages{
 			PackageName: args[0],
 			UseUUID:     value,
+			CurrentPath: cwd,
 		}
 
 		makePackage.CreatePackage()

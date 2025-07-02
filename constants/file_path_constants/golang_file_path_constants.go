@@ -3,15 +3,15 @@ package filepathconstants
 import "path/filepath"
 
 var (
-	GolangControllerFileAbsolutePath           = filepath.Join(GolangCodeFolderAbsolutePath, "controller", "controller")
-	GolangDTOPaginationRequestFileAbsolutePath = filepath.Join(GolangCodeFolderAbsolutePath, "dto_pagination_request", "dto_pagination_request")
-	GolangDTORequestFileAbsolutePath           = filepath.Join(GolangCodeFolderAbsolutePath, "dto_request", "dto_request")
-	GolangDTOResponseFileAbsolutePath          = filepath.Join(GolangCodeFolderAbsolutePath, "dto_response", "dto_response")
-	GolangModelFileAbsolutePath                = filepath.Join(GolangCodeFolderAbsolutePath, "model", "model")
-	GolangNavigatorFileAbsolutePath            = filepath.Join(GolangCodeFolderAbsolutePath, "navigator", "navigator")
-	GolangRepositoryFileAbsolutePath           = filepath.Join(GolangCodeFolderAbsolutePath, "repository", "repository")
-	GolangRouteFileAbsolutePath                = filepath.Join(GolangCodeFolderAbsolutePath, "route", "route")
-	GolangServiceFileAbsolutePath              = filepath.Join(GolangCodeFolderAbsolutePath, "service", "service")
+	GolangControllerFileAbsolutePath           = filepath.Join(GolangCodeFolderAbsolutePath, "controller")
+	GolangDTOPaginationRequestFileAbsolutePath = filepath.Join(GolangCodeFolderAbsolutePath, "dto_pagination_request")
+	GolangDTORequestFileAbsolutePath           = filepath.Join(GolangCodeFolderAbsolutePath, "dto_request")
+	GolangDTOResponseFileAbsolutePath          = filepath.Join(GolangCodeFolderAbsolutePath, "dto_response")
+	GolangModelFileAbsolutePath                = filepath.Join(GolangCodeFolderAbsolutePath, "model")
+	GolangNavigatorFileAbsolutePath            = filepath.Join(GolangCodeFolderAbsolutePath, "navigator")
+	GolangRepositoryFileAbsolutePath           = filepath.Join(GolangCodeFolderAbsolutePath, "repository")
+	GolangRouteFileAbsolutePath                = filepath.Join(GolangCodeFolderAbsolutePath, "route")
+	GolangServiceFileAbsolutePath              = filepath.Join(GolangCodeFolderAbsolutePath, "service")
 
 	GolangCustomValidationGeneratorFileAbsolutePath = filepath.Join(GolangCustomValidationFolderAbsolutePath, "validation_generator")
 
