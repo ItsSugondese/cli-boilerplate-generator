@@ -6,6 +6,9 @@ package cmd
 import (
 	delimiter_constants "cli-boilerplate-generator/constants/delimiter-constants"
 	filepathconstants "cli-boilerplate-generator/constants/file_path_constants"
+	middleware2 "cli-boilerplate-generator/constants/middleware"
+	"cli-boilerplate-generator/internal/domain/makeenums"
+	"cli-boilerplate-generator/pkg/middleware"
 	"cli-boilerplate-generator/pkg/utils/file_utils"
 	"cli-boilerplate-generator/pkg/utils/file_writer"
 	"fmt"
@@ -71,9 +74,19 @@ to quickly create a Cobra application.`,
 
 		return nil
 	},
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("name of enum is ", enumName)
+	Run: middleware.CommonMiddleware(func(cmd *cobra.Command, args []string) {
+		cwd := cmd.Context().Value(middleware2.TERMINAL_PATH_GETTER).(string)
+
+		makeEnums := makeenums.MakeEnums{
+			EnumName:    enumName,
+			Lang:        langName,
+			CurrentPath: cwd,
+			ProjectName: projectName,
+		}
+		makeEnums.CreateEnums()
+
 	},
+	),
 }
 
 func init() {

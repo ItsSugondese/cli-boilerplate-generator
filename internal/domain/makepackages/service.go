@@ -25,7 +25,15 @@ func (m MakePackages) CreatePackage() error {
 
 	//moduleName := strings.ToLower(strings.ReplaceAll(strings.TrimSpace(m.PackageName), " ", "-"))
 
-	//subFolders := folder_utils.ListFoldersInDir(m.CurrentPath)
+	//subFoldersEnums := go_folder_names_enums_enums.GoFolderNamesEnums.GetKeys()
+
+	//for _, subFolderEnum := range subFoldersEnums {
+	//	snakeCaseModuleName := strings.ToLower(strings.ReplaceAll(m.PackageName, "-", "_"))
+	//	String toNameSubFolder = subFolderEnum.getName();
+	//
+	//
+	//}
+
 	fmt.Println("Inside create %s", m.CurrentPath)
 	return nil
 }

@@ -4,4 +4,5 @@ type MakeEnums struct {
 	EnumName    string
 	Lang        string
 	CurrentPath string
+	ProjectName string
 }

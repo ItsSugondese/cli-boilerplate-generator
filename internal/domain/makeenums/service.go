@@ -1,10 +1,13 @@
 package makeenums
 
 import (
+	filepathconstants "cli-boilerplate-generator/constants/file_path_constants"
 	"cli-boilerplate-generator/pkg/utils/file_utils"
+	"cli-boilerplate-generator/pkg/utils/file_writer"
 	"fmt"
 	"os"
 	"path/filepath"
+	"strings"
 )
 
 type MakeEnumsService interface {
@@ -13,7 +16,7 @@ type MakeEnumsService interface {
 
 func (m MakeEnums) CreateEnums() error {
 
-	enumName := m.EnumName + "-" + "enums"
+	enumName := strings.ToLower(m.EnumName + "-" + "enums")
 	fullFile := filepath.Join(m.CurrentPath, enumName)
 	if !file_utils.FileExists(fullFile) {
 		err := os.MkdirAll(fullFile, os.ModePerm)
@@ -23,8 +26,9 @@ func (m MakeEnums) CreateEnums() error {
 		}
 	}
 
-	//enumFileSnakeCase := filepath.Join(fullFile, strings.ToLower(strings.ReplaceAll(enumName, "-", "_"))+".go")
+	enumFileSnakeCase := filepath.Join(fullFile, strings.ToLower(strings.ReplaceAll(enumName, "-", "_"))+".go")
 
-	fmt.Println("Inside create %s", m.CurrentPath)
+	file_writer.ReadAndWriteFromStorageFileToEnumFile(filepathconstants.GolangEnumGeneratorFileAbsolutePath, enumFileSnakeCase, enumName)
+	fmt.Println("Inside create ", m.CurrentPath)
 	return nil
 }
